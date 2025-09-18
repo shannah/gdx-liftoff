@@ -1,0 +1,31 @@
+{
+    "bin": {"gdx-liftoff": "jdeploy-bundle/jdeploy.js"},
+    "author": "LibGDX Team",
+    "description": "LibGDX Project Setup utility",
+    "main": "index.js",
+    "preferGlobal": true,
+    "repository": "",
+    "version": "1.0.0",
+    "jdeploy": {
+        "jdk": false,
+        "javaVersion": "21",
+        "jar": "build/libs/gdx-liftoff-1.13.5.3-SNAPSHOT.jar",
+        "javafx": false,
+        "title": "GDX Liftoff",
+        "buildCommand": [
+            "./gradlew",
+            "build"
+        ]
+    },
+    "dependencies": {
+        "command-exists-promise": "^2.0.2",
+        "node-fetch": "2.6.7",
+        "tar": "^4.4.8",
+        "yauzl": "^2.10.0",
+        "shelljs": "^0.8.4"
+    },
+    "license": "ISC",
+    "name": "gdx-liftoff",
+    "files": ["jdeploy-bundle"],
+    "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}
+}
