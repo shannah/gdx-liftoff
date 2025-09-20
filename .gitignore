@@ -151,3 +151,7 @@ Thumbs.db
 *#*#
 
 /.kotlin/
+
+# Claude and jDeploy files
+CLAUDE.md
+.jdeploy/
