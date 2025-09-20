@@ -28,6 +28,32 @@ jobs:
         with:
           arguments: build
 
+      - name: Update package.json with correct JAR path
+        run: |
+          # Find the JAR file in build/libs
+          JAR_FILE=$(find build/libs -name "*.jar" -type f | head -1)
+          if [ -z "$JAR_FILE" ]; then
+            echo "No JAR file found in build/libs"
+            exit 1
+          fi
+          echo "Found JAR file: $JAR_FILE"
+
+          # Update the package.json with the correct JAR path
+          if [ -f package.json ]; then
+            # Use jq to update the jdeploy.jar property
+            if command -v jq > /dev/null 2>&1; then
+              jq --arg jar "$JAR_FILE" '.jdeploy.jar = $jar' package.json > package.json.tmp && mv package.json.tmp package.json
+            else
+              # Fallback to sed if jq is not available
+              sed -i.bak "s|\"jar\": \"[^\"]*\"|\"jar\": \"$JAR_FILE\"|" package.json && rm package.json.bak
+            fi
+            echo "Updated package.json with JAR path: $JAR_FILE"
+            cat package.json | grep -A1 -B1 '"jar"'
+          else
+            echo "package.json not found"
+            exit 1
+          fi
+
       - name: Build App Installer Bundles
         uses: shannah/jdeploy@master
         with:
